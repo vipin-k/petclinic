@@ -1,0 +1,73 @@
+﻿@model DotNetPetClinic.Models.Owner
+
+@{
+    ViewBag.Title = Model.FirstName + " " + Model.LastName;
+}
+
+<h2>Owner Information</h2>
+
+<table>
+    <tr>
+        <td>Name</td>
+        <td>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)</td>
+    </tr>
+    <tr>
+        <td>Address</td>
+        <td>@Html.DisplayFor(model => model.Address)</td>
+    </tr>
+    <tr>
+        <td>City</td>
+        <td>@Html.DisplayFor(model => model.City)</td>
+    </tr>
+    <tr>
+        <td>Telephone</td>
+        <td>@Html.DisplayFor(model => model.Telephone)</td>
+    </tr>
+</table>
+
+<h3>Pets</h3>
+@foreach (DotNetPetClinic.Models.Pet p in Model.Pets)   
+{
+<table>
+    <tr valign="top">
+        <td>
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td>@p.Name</td>
+                </tr>
+                <tr>
+                    <td>Birthdate</td>
+                    <td>@p.BirthDate</td>
+                </tr>
+                <tr>
+                    <td>Type</td>
+                    <td>@p.PetType.Name</td>
+                </tr>
+            </table>
+            <td valign="top">
+                <table>
+                    <tr>
+                        <thead>
+                            <th>Visit Date</th>
+                            <th>Description</th>
+                        </thead>
+                        @foreach (DotNetPetClinic.Models.Visit visit in p.Visits)
+                        {
+                            <tr>
+                                <td>@visit.VisitDate</td>
+                                <td>@visit.Description</td>
+                            </tr>
+                        }
+                    </tr>
+                </table>
+            </td>
+        </td>
+    </tr>
+</table>    
+}
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
